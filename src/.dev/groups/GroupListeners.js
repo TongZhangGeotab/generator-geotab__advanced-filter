@@ -12,6 +12,7 @@ class GroupListeners {
         this.inputBox = document.getElementById('group-input');
         this.groupToggle = document.getElementById('group-toggle-button');
         this.deleteAllBtn = document.getElementById('group-remove-all');
+        this.filterBtn;
         this.firstOpen = true;
         this.open = false;
         this.closeListener;
@@ -95,9 +96,12 @@ class GroupListeners {
             
             if(this.firstOpen){
                 await this.groupBox.getAllGroupsInDatabase();
+                this.filterBtn = document.getElementById('open-filter-button')
+                this.filterBtn.addEventListener('click', this._showAdvancedGroupFilter)
                 this.firstOpen = false;
             } else {
                 this.groupBox.generateRootHtml();
+                // this.filterBtn.addEventListener('click', ()=> {console.log('test')})
             }
 
             this.open = true;
@@ -109,6 +113,11 @@ class GroupListeners {
         }
 
         this._rotateToggleButton();
+    }
+
+    _showAdvancedGroupFilter() {
+        let filter = document.getElementById('advanced-group-filter')
+        filter.style.display = 'block'
     }
 
     _rotateToggleButton(){

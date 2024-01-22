@@ -32,6 +32,8 @@ import './login/loginTemplate.js';
 import GeotabLogin from './login/loginLogic';
 import GeotabApi from './api';
 
+import'./advancedGroupFilter/advancedGroupFilter.js'
+
 // Building navbar
 // Exposing handler to let the translate function have access to it
 import './navbar/NavBuilder';
