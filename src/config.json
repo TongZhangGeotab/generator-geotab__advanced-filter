@@ -1,0 +1,25 @@
+{
+  "name": "demo",
+  "supportEmail": "",
+  "version": "0.0.1",
+  "items": [{
+    "url": "demo.html",
+    
+    
+    "url": "demo.html",
+    "path": "ActivityLink/",
+    "menuName": {
+      "en": "generator"
+    },
+    
+    "icon": "images/icon.svg"
+  }],
+  
+  
+  "dev": {
+    "root": "demo",
+    "dist": {
+      "host": "https://www.example.com/myaddin/"
+    }
+  }
+}
