@@ -2,10 +2,11 @@ const Groups = require('./Groups.js');
 let xIconSvg = require('../images/close-round.svg').default;
 let chevron = require('../images/Font_Awesome_5_solid_chevron-left.svg').default;
 const regeneratorRuntime = require('regenerator-runtime');
-
+const AdvancedGroupFilterListener = require('../advancedGroupFilter/AdvancedGroupFilterListener.js')
 class GroupListeners {
 
     constructor(api, state, target){
+        this.filterListener;
         this.groupBox = new Groups(api, state, target);
         window.groupsFilter = this.groupBox;
         this.displayBox = document.getElementById(target);
@@ -98,6 +99,8 @@ class GroupListeners {
                 await this.groupBox.getAllGroupsInDatabase();
                 this.filterBtn = document.getElementById('open-filter-button')
                 this.filterBtn.addEventListener('click', this._showAdvancedGroupFilter)
+                this.filterListener = new AdvancedGroupFilterListener()
+                this.filterListener.assignListeners()
                 this.firstOpen = false;
             } else {
                 this.groupBox.generateRootHtml();
