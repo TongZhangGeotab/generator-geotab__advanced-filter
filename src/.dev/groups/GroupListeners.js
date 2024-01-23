@@ -117,7 +117,6 @@ class GroupListeners {
     _showAdvancedGroupFilter() {
         let filter = document.getElementById('advanced-group-filter')
         filter.style.display = 'block'
-        console.log('test')
     }
 
     _rotateToggleButton(){

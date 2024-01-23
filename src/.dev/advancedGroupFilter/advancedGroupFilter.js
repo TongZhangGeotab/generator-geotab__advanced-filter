@@ -4,10 +4,15 @@ let advancedGroupFilter = `
 
 <style>
 .geo-dialog {
-    display: none;
+    display: block;
     left:50%;
     top:50%;
     transform: translate(-50%, -50%)
+}
+
+.advanced-groups-filter {
+    max-height: 75vh;
+    overflow-y: auto;
 }
 </style>
 
@@ -18,7 +23,7 @@ let advancedGroupFilter = `
     <div class='geo-dialog__content'>
         <div class='form advanced-groups-filter'>
             <div class='form__desc'>Create conditions below to filter the entire system.</div>
-            <div id='advanced-conditions-list'></div>
+            <ul id='advanced-conditions-list' class='sections form__sections'></ul>
             <div class='form__add-section'>
                 <button id='advanced-filter-add-condition-button' class='add-section__button geo-button geo-caption'>Add new condition</button>
             </div>
