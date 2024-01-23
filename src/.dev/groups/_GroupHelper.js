@@ -116,7 +116,9 @@ class _GroupHelper {
      * @param {string} baseNode the user's highest group permission. 
      */
     static generateNodeHtml(groupsDictionary, root, baseNode = root){
-        let html = `<button id="open-filter-button" class="geotabPrimaryFill select-buttons">Advanced group filter</button>
+        let html = `<button id="open-filter-button" class="geo-form organization-filter-popup__item organization-filter-advanced-link">
+                        <span class="organization-filter-advanced-link__label">Advanced group filter</span>
+                    </button>
                     <ul id="group-dropdown-ul" class="geotabPrimaryFill select-buttons">`
         let name = groupsDictionary[root].name;
         let checked = groupsDictionary[root].selected ? 'checked' : '';
