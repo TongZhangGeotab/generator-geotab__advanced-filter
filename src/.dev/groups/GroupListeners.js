@@ -97,16 +97,12 @@ class GroupListeners {
             
             if(this.firstOpen){
                 await this.groupBox.getAllGroupsInDatabase();
-                this.filterBtn = document.getElementById('open-filter-button')
-                this.filterBtn.addEventListener('click', this._showAdvancedGroupFilter)
-                this.filterListener = new AdvancedGroupFilterListener()
-                this.filterListener.assignListeners()
                 this.firstOpen = false;
             } else {
                 this.groupBox.generateRootHtml();
-                // this.filterBtn.addEventListener('click', ()=> {console.log('test')})
             }
-
+            this.filterBtn = document.getElementById('open-filter-button')
+            this.filterBtn.addEventListener('click', () => this._showAdvancedGroupFilter())
             this.open = true;
         } else {
             this.inputBox.value = '';
@@ -121,6 +117,7 @@ class GroupListeners {
     _showAdvancedGroupFilter() {
         let filter = document.getElementById('advanced-group-filter')
         filter.style.display = 'block'
+        console.log('test')
     }
 
     _rotateToggleButton(){

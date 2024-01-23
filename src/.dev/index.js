@@ -33,6 +33,10 @@ import GeotabLogin from './login/loginLogic';
 import GeotabApi from './api';
 
 import'./advancedGroupFilter/advancedGroupFilter.js'
+import AdvancedGroupFilterListener from './advancedGroupFilter/AdvancedGroupFilterListener.js';
+let filterListener = new AdvancedGroupFilterListener()
+filterListener.assignListeners()
+// console.log('test')
 
 // Building navbar
 // Exposing handler to let the translate function have access to it

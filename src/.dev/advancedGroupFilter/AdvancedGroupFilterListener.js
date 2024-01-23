@@ -8,8 +8,8 @@ class AdvancedGroupFilterListener {
 
     assignListeners() {
         // this.newConditionButton.addEventListener('click', this._addCondition())
-        this.cancelBtn.addEventListener('click', this._cancelFilters())
-        this.applyFiltersBtn.addEventListener('click', this._applyFilters())
+        this.cancelBtn.addEventListener('click', () => this._cancelFilters())
+        this.applyFiltersBtn.addEventListener('click', () => this._applyFilters())
     }
 
     // _addCondition() {

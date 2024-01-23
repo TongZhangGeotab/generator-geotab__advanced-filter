@@ -4,7 +4,7 @@ let advancedGroupFilter = `
 
 <style>
 .geo-dialog {
-    display: block;
+    display: none;
     left:50%;
     top:50%;
     transform: translate(-50%, -50%)
