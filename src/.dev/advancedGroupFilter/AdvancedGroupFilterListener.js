@@ -38,13 +38,22 @@ class AdvancedGroupFilterListener {
                             </span>
                         </div>
                     </div>
-                    <div class='section__col ellipsis section__col--right'>
+                    <div class='section__col section__col--right'>
                         <label class='section__label'>Groups</label>
                         <button id='condition${this.conditionCount}-remove' class='section__remove-button geo-button geo-button--link'>Remove condition</button>
-                        <div class='section__groups ellipsis node-select-container'>
-                            <div class='entity-navigator-container node-select-container__control'>Select groups</div>
+                        <div class='section__groups node-select-container'>
+                            <div class='entity-navigator-container node-select-container__control'>
+                                <div class='geo-secondary-button-with-expand geotab-filter__wrapper node-select-container__control-element node-select-container__control-element--spacing-right'>
+                                    <input id='condition${this.conditionCount}-search' class='inputBox geo-secondary-button-with-expand__input geotab-filter__input' type='text' placeholder='Select groups...'></input>
+                                    <button id='condition${this.conditionCount}-dropdown-toggle' class='geo-secondary-button-with-expand__expand geotab-filter__expand'></button>                                    
+                                </div>
+                                <button id='condition${this.conditionCount}-clear' class='node-select-container__control-element node-select-container__control-element--spacing-left geo-button'>Clear selection</button>
+                            </div>
                             <div class='currentState node-select-container__state'>
-                                <span class='stateItem__text'>Company group</span>
+                                <div class='stateItem closeCrossStateItem>
+                                    <span class='stateItem__text'>Company group</span>
+                                    <button id='condition${this.conditionCount}-clear-groups' class='filterCloseButton'></button>
+                                </div>
                             </div>
                         </div>
                     </div>
