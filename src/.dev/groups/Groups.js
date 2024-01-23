@@ -10,14 +10,15 @@ const _GroupHelper = require('./_GroupHelper.js');
  */
 class Groups {
     
-    constructor(api, state, target){
+    constructor(api, state, target, searchbar, removeBtn, activeGroups){
         this.api = api;
         this.state = state;
         this.baseNode;
         this.groupsDictionary;
         this.root = document.getElementById(target);
-        this.activeLabel = document.getElementById('active-group');
-        this.deleteAllBtn = document.getElementById('group-remove-all');
+        this.activeLabel = document.getElementById(activeGroups);
+        this.deleteAllBtn = document.getElementById(removeBtn);
+        this.searchbar = searchbar
         this.previousGroupStack = [];
         this.activeGroups = [];
         this.previousSearchTerm;
@@ -166,7 +167,7 @@ class Groups {
      * @param {object} result Response from the server - should contain a list of all the groups on the DB.
      */
     _groupSuccessCallback(result, resolve){
-        let groupInput = document.getElementById('group-input');
+        let groupInput = document.getElementById(this.searchbar);
         this.baseNode = result[0].id;
         this.groupsDictionary = _GroupHelper.convertGroupsListToDictionary(result);
         let html = _GroupHelper.generateNodeHtml(this.groupsDictionary, this.baseNode);
@@ -184,7 +185,7 @@ class Groups {
      * @param {string} error Error message from failed api call/Group object instantiation.
      */
     _groupErrorCallback(error){
-        let groupInput = document.getElementById('group-input');
+        let groupInput = document.getElementById(this.searchbar);
         groupInput.placeholder = "Unable to retrieve Groups";
         console.log(error);
 
