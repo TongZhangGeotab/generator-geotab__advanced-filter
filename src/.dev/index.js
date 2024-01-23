@@ -73,7 +73,7 @@ require('./lang/languages');
 
 /* Group Filter Module */
 import GroupListeners from './groups/GroupListeners.js';
-let groupListener = new GroupListeners(global.api, global.state, 'group-dropdown');
+let groupListener = new GroupListeners(global.api, global.state, 'filter-dropdown');
 groupListener.assignEventListeners();
 
 

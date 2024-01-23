@@ -5,6 +5,7 @@ class AdvancedGroupFilterListener {
         this.cancelBtn = document.getElementById('advanced-filter-cancel-button')
         this.applyFiltersBtn = document.getElementById('advanced-filter-apply-button')
         this.conditionsList = document.getElementById('advanced-conditions-list')
+        this.filterBtn = document.getElementById('open-filter-button')
         this.conditionCount = 0
         this.conditions = {}
     }
@@ -13,6 +14,12 @@ class AdvancedGroupFilterListener {
         this.newConditionButton.addEventListener('click', () => this._addCondition())
         this.cancelBtn.addEventListener('click', () => this._cancelFilters())
         this.applyFiltersBtn.addEventListener('click', () => this._applyFilters())
+        this.filterBtn.addEventListener('click', () => this._showAdvancedGroupFilter())
+    }
+
+    _showAdvancedGroupFilter() {
+        let filter = document.getElementById('advanced-group-filter')
+        filter.style.display = 'block'
     }
 
     _addCondition() {

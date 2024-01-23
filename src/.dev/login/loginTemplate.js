@@ -243,7 +243,12 @@ let loginExample = `
             <button id="group-remove-all">
                 <svg class="svgIcon" style="height: 15px; width: 15px"></svg>
             </button>
-            <div id="group-dropdown" class="geotabPrimaryFill"></div>
+            <div id="group-dropdown" class="geotabPrimaryFill">
+                <button id="open-filter-button" class="geo-form organization-filter-popup__item organization-filter-advanced-link">
+                    <span class="organization-filter-advanced-link__label">Advanced group filter</span>
+                </button>
+                <div id="filter-dropdown" class="geotabPrimaryFill"></div>
+            </div>
         </div>
         <div id="languages-target"></div>
         

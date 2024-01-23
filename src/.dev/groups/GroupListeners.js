@@ -9,11 +9,10 @@ class GroupListeners {
         this.filterListener;
         this.groupBox = new Groups(api, state, target);
         window.groupsFilter = this.groupBox;
-        this.displayBox = document.getElementById(target);
+        this.displayBox = document.getElementById('group-dropdown')
         this.inputBox = document.getElementById('group-input');
         this.groupToggle = document.getElementById('group-toggle-button');
         this.deleteAllBtn = document.getElementById('group-remove-all');
-        this.filterBtn;
         this.firstOpen = true;
         this.open = false;
         this.closeListener;
@@ -101,8 +100,6 @@ class GroupListeners {
             } else {
                 this.groupBox.generateRootHtml();
             }
-            this.filterBtn = document.getElementById('open-filter-button')
-            this.filterBtn.addEventListener('click', () => this._showAdvancedGroupFilter())
             this.open = true;
         } else {
             this.inputBox.value = '';
@@ -112,11 +109,6 @@ class GroupListeners {
         }
 
         this._rotateToggleButton();
-    }
-
-    _showAdvancedGroupFilter() {
-        let filter = document.getElementById('advanced-group-filter')
-        filter.style.display = 'block'
     }
 
     _rotateToggleButton(){
