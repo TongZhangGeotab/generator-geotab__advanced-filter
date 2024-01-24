@@ -5,7 +5,6 @@ const regeneratorRuntime = require('regenerator-runtime');
 class GroupListeners {
 
     constructor(api, state, target, parent, searchbar, dropdownToggle, removeBtn, activeGroupsid){
-        this.filterListener;
         this.groupBox = new Groups(api, state, target, searchbar, removeBtn, activeGroupsid, parent);
         window.groupsFilter = this.groupBox;
         this.displayBox = document.getElementById(parent)
