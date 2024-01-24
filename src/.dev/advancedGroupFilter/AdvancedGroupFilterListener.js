@@ -9,21 +9,33 @@ class AdvancedGroupFilterListener {
         this.conditionsList = document.getElementById('advanced-conditions-list')
         this.filterBtn = document.getElementById('open-filter-button')
         this.conditionCount = 0
-        this.conditions = {}
     }
 
     assignListeners() {
+        // Creates a new list item when the add condition button is clicked
         this.newConditionButton.addEventListener('click', () => this._addCondition())
+
+        // Cancel button closes popup and removes all conditions
         this.cancelBtn.addEventListener('click', () => this._cancelFilters())
+
+        // Apply filters button closes popup but keeps all conditions
         this.applyFiltersBtn.addEventListener('click', () => this._applyFilters())
+
+        // Show advanced filter popup when button is clicked from original filter dropdown menu
         this.filterBtn.addEventListener('click', () => this._showAdvancedGroupFilter())
     }
 
+    // Show the advnaced filter popup
     _showAdvancedGroupFilter() {
         let filter = document.getElementById('advanced-group-filter')
         filter.style.display = 'block'
     }
 
+    // Add a condition to the advanced filter
+    // Switcher section div is for the AND/OR switcher before the condition (doesn't show for first condition)
+    // Left column contains the AND/OR switcher for the condition itself
+    // Right column contains the group selection and remove button
+    // Group wrapper contains the dropdown menu, toggle button, active groups, and clear active groups button
     _addCondition() {
         this.conditionsList.insertAdjacentHTML('beforeend', `
             <li id='condition${this.conditionCount}' class='section form__section'>
@@ -74,15 +86,20 @@ class AdvancedGroupFilterListener {
             </li>
         `)
         
+        // Remove the condition when the remove button is clicked
         button = document.getElementById(`condition${this.conditionCount}-remove`)
         button.addEventListener('click', (button) => this._handleRemoveCondition(button))
 
+        // Create a new group listener for each condition
+        // TODO: Change the state to a local state - combine all the local states with the global state when Appy filters is clicked
         groupListener = new GroupListeners(global.api, global.state, `condition${this.conditionCount}-filter-dropdown`, `condition${this.conditionCount}-group-dropdown`, `condition${this.conditionCount}-search`, `condition${this.conditionCount}-dropdown-toggle`, `condition${this.conditionCount}-clear-group`, `condition${this.conditionCount}-active-groups`);
         groupListener.assignEventListeners();        
 
+        // Increment counter to ensure each condition has a unique name
         this.conditionCount ++
     }
 
+    // Remove condition
     _handleRemoveCondition(button) {
         id = button.srcElement.id
         condition = document.getElementById(id.slice(0, -7))
@@ -90,13 +107,14 @@ class AdvancedGroupFilterListener {
         console.log(button)
     }
 
+    // Remove all conditions and hide popup
     _cancelFilters() {
         this.displayBox.style.display = 'none'
         this.conditionsList.innerHTML = ''
         this.conditionCount = 0
-        this.conditions = {}
     }
 
+    // Keep conditions and hide popup
     _applyFilters() {
         this.displayBox.style.display = 'none'
     }

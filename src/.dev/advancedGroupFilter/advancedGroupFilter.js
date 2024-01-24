@@ -1,3 +1,4 @@
+// HTML for the advanced group filter popup
 let body = document.getElementsByTagName('body')[0];
 let advancedGroupFilter = `
 <link rel='stylesheet' href='https://mypreview.geotab.com/geotab/checkmate/main.css?skin=my_geotab'>
