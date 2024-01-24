@@ -14,6 +14,10 @@ let advancedGroupFilter = `
     max-height: 75vh;
     overflow-y: auto;
 }
+
+.advanced-filter-dropdown-groups {
+    flex-direction: column;
+}
 </style>
 
 <div id='advanced-group-filter' class='geo-dialog'>

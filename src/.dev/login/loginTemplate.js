@@ -71,21 +71,21 @@ let loginExample = `
         border-bottom: 1px solid #ccc;
     }
 
-    #group-wrapper {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: nowrap;
-        flex: 1;
-        padding-left: 40px;
-    }
-
-    #group-toggle-button svg {
+    .group-toggle-button svg {
         mask-image: url(${icon});
         mask-repeat: no-repeat;
         -webkit-mask-image: url(${icon});
         -webkit-mask-repeat: no-repeat;
         background-color: #666;
         transform: rotate(-90deg);
+    }
+
+    .group-wrapper {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        flex: 1;
+        padding-left: 40px;
     }
 
     #group-selector {
@@ -230,11 +230,11 @@ let loginExample = `
     </style>
     <header class="dev-header">
     
-        <div id="group-wrapper">
+        <div id="group-wrapper" class="group-wrapper">
             <div id="group-selector" class="geotabFormEditField noTranslate">
                 <input type="text" id="group-input" placeholder="Search for Groups">
             </div>
-            <button id="group-toggle-button" class="dev-button">
+            <button id="group-toggle-button" class="dev-button group-toggle-button">
                 <svg class="svgIcon geotabIcons_chevron" style="height: 15px; width: 15px;"></svg>
             </button>
             <div id="active-group">

@@ -2,12 +2,11 @@ const Groups = require('./Groups.js');
 let xIconSvg = require('../images/close-round.svg').default;
 let chevron = require('../images/Font_Awesome_5_solid_chevron-left.svg').default;
 const regeneratorRuntime = require('regenerator-runtime');
-const AdvancedGroupFilterListener = require('../advancedGroupFilter/AdvancedGroupFilterListener.js')
 class GroupListeners {
 
-    constructor(api, state, target, parent, searchbar, dropdownToggle, removeBtn, activeGroups){
+    constructor(api, state, target, parent, searchbar, dropdownToggle, removeBtn, activeGroupsid){
         this.filterListener;
-        this.groupBox = new Groups(api, state, target, searchbar, removeBtn, activeGroups);
+        this.groupBox = new Groups(api, state, target, searchbar, removeBtn, activeGroupsid, parent);
         window.groupsFilter = this.groupBox;
         this.displayBox = document.getElementById(parent)
         this.inputBox = document.getElementById(searchbar);

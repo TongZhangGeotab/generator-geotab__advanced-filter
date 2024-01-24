@@ -80,8 +80,8 @@ class _GroupHelper {
      * @param {object} groupsDictionary dictionary used in search.
      * @param {RegExp} regex Regex defining search term.
      */
-    static generateSearchHtml(groupsDictionary, regex = /^.*$/g){
-        let html = `<ul id="group-dropdown-ul" class="geotabPrimaryFill select-buttons">`;
+    static generateSearchHtml(groupsDictionary, id, regex = /^.*$/g){
+        let html = `<ul id=${id} class="geotabPrimaryFill select-buttons">`;
         let resultCount = 0;
         
         // When we iterate over all the keys in the groupsDictionary, we get all the groups instead of top level children
@@ -115,8 +115,8 @@ class _GroupHelper {
      * @param {string} root the dictionary key we start the folder on.
      * @param {string} baseNode the user's highest group permission. 
      */
-    static generateNodeHtml(groupsDictionary, root, baseNode = root){
-        let html = `<ul id="group-dropdown-ul" class="geotabPrimaryFill select-buttons">`
+    static generateNodeHtml(groupsDictionary, root, parent, baseNode = root){
+        let html = `<ul id="${parent}-ul" class="geotabPrimaryFill select-buttons">`
         let name = groupsDictionary[root].name;
         let checked = groupsDictionary[root].selected ? 'checked' : '';
 

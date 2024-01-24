@@ -1,3 +1,5 @@
+const GroupListeners = require('../groups/GroupListeners.js')
+
 class AdvancedGroupFilterListener {
     constructor () {
         this.displayBox = document.getElementById('advanced-group-filter')
@@ -48,18 +50,22 @@ class AdvancedGroupFilterListener {
                     <div class='section__col section__col--right'>
                         <label class='section__label'>Groups</label>
                         <button id='condition${this.conditionCount}-remove' class='section__remove-button geo-button geo-button--link'>Remove condition</button>
-                        <div class='section__groups node-select-container'>
-                            <div class='entity-navigator-container node-select-container__control'>
+                        <div id='group-wrapper' class='section__groups node-select-container'>
+                            <div class='entity-navigator-container node-select-container__control advanced-filter-dropdown-groups'>
                                 <div class='geo-secondary-button-with-expand geotab-filter__wrapper node-select-container__control-element node-select-container__control-element--spacing-right'>
                                     <input id='condition${this.conditionCount}-search' class='inputBox geo-secondary-button-with-expand__input geotab-filter__input' type='text' placeholder='Select groups...'></input>
-                                    <button id='condition${this.conditionCount}-dropdown-toggle' class='geo-secondary-button-with-expand__expand geotab-filter__expand'></button>                                    
+                                    <button id='condition${this.conditionCount}-dropdown-toggle' class='geo-secondary-button-with-expand__expand geotab-filter__expand group-toggle-button'>
+                                        <svg class="svgIcon geotabIcons_chevron" style="height: 15px; width: 15px;"></svg>
+                                    </button>
                                 </div>
-                                <button id='condition${this.conditionCount}-clear' class='node-select-container__control-element node-select-container__control-element--spacing-left geo-button'>Clear selection</button>
+                                <div id='condition${this.conditionCount}-group-dropdown'>
+                                    <div id='condition${this.conditionCount}-filter-dropdown' class='geotabPrimaryFill'></div>
+                                </div>
                             </div>
                             <div class='currentState node-select-container__state'>
-                                <div class='stateItem closeCrossStateItem>
-                                    <span class='stateItem__text'>Company group</span>
-                                    <button id='condition${this.conditionCount}-clear-groups' class='filterCloseButton'></button>
+                                <div class='stateItem closeCrossStateItem'>
+                                    <div id='condition${this.conditionCount}-active-groups' class='stateItem__text'>Active Groups: ALL</div>
+                                    <button id='condition${this.conditionCount}-clear-group' class='filterCloseButton'></button>
                                 </div>
                             </div>
                         </div>
@@ -67,8 +73,13 @@ class AdvancedGroupFilterListener {
                 </div>
             </li>
         `)
+        
         button = document.getElementById(`condition${this.conditionCount}-remove`)
         button.addEventListener('click', (button) => this._handleRemoveCondition(button))
+
+        groupListener = new GroupListeners(global.api, global.state, `condition${this.conditionCount}-filter-dropdown`, `condition${this.conditionCount}-group-dropdown`, `condition${this.conditionCount}-search`, `condition${this.conditionCount}-dropdown-toggle`, `condition${this.conditionCount}-clear-group`, `condition${this.conditionCount}-active-groups`);
+        groupListener.assignEventListeners();        
+
         this.conditionCount ++
     }
 

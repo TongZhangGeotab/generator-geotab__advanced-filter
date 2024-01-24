@@ -10,15 +10,16 @@ const _GroupHelper = require('./_GroupHelper.js');
  */
 class Groups {
     
-    constructor(api, state, target, searchbar, removeBtn, activeGroups){
+    constructor(api, state, target, searchbar, removeBtn, activeGroupsid, parent){
         this.api = api;
         this.state = state;
         this.baseNode;
         this.groupsDictionary;
         this.root = document.getElementById(target);
-        this.activeLabel = document.getElementById(activeGroups);
+        this.activeLabel = document.getElementById(activeGroupsid);
         this.deleteAllBtn = document.getElementById(removeBtn);
         this.searchbar = searchbar
+        this.parent = parent
         this.previousGroupStack = [];
         this.activeGroups = [];
         this.previousSearchTerm;
@@ -29,7 +30,7 @@ class Groups {
      * collected groups and use this method to just re-generate the base html.
      */
     generateRootHtml(){
-        let html = _GroupHelper.generateNodeHtml(groupsFilter.groupsDictionary, this.baseNode);
+        let html = _GroupHelper.generateNodeHtml(groupsFilter.groupsDictionary, this.baseNode, this.parent);
         groupsFilter.root.innerHTML = html;
     }
 
@@ -68,7 +69,7 @@ class Groups {
 
         this.writeActiveGroups();
 
-        let html = _GroupHelper.generateNodeHtml(this.groupsDictionary, this.baseNode);
+        let html = _GroupHelper.generateNodeHtml(this.groupsDictionary, this.baseNode, this.parent);
         this.root.innerHTML = html;
 
         geotab.addin.demo.focus(this.api, this.state);
@@ -129,7 +130,7 @@ class Groups {
      */
     groupSearch(query){
         let regex = this._createRegex(query.toLowerCase());
-        let html = _GroupHelper.generateSearchHtml(this.groupsDictionary, regex);
+        let html = _GroupHelper.generateSearchHtml(this.groupsDictionary, `${this.parent}-ul`, regex);
         this.root.innerHTML = html;
     }
 
@@ -147,7 +148,7 @@ class Groups {
      */
     changeFocus(previous, current){
         this.previousGroupStack.push(previous);
-        let html = _GroupHelper.generateNodeHtml(this.groupsDictionary, current, this.baseNode);
+        let html = _GroupHelper.generateNodeHtml(this.groupsDictionary, current, this.parent, this.baseNode);
         this.root.innerHTML = html;
     }
 
@@ -157,7 +158,7 @@ class Groups {
      */
     goToPreviousFolder(){
         let previousFolder = this.previousGroupStack.pop();
-        let html = _GroupHelper.generateNodeHtml(this.groupsDictionary, previousFolder, this.baseNode);
+        let html = _GroupHelper.generateNodeHtml(this.groupsDictionary, previousFolder, this.parent, this.baseNode);
         this.root.innerHTML = html;
     }
 
@@ -170,7 +171,7 @@ class Groups {
         let groupInput = document.getElementById(this.searchbar);
         this.baseNode = result[0].id;
         this.groupsDictionary = _GroupHelper.convertGroupsListToDictionary(result);
-        let html = _GroupHelper.generateNodeHtml(this.groupsDictionary, this.baseNode);
+        let html = _GroupHelper.generateNodeHtml(this.groupsDictionary, this.baseNode, this.parent);
         this.root.innerHTML = html;
 
         // If we had any errors, we want to reset the placeholder text.
