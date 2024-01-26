@@ -22,9 +22,11 @@ global.geotab = {
     customButtons: {}, 
     isDriveAddin: false
 }
-// Importing the app rules -> Where addin will be described
 
+
+// Importing the app rules -> Where addin will be described
 require('../app/scripts/main');
+
 
 // Importing dev-specific packages
 import './rison';
@@ -32,19 +34,17 @@ import './login/loginTemplate.js';
 import GeotabLogin from './login/loginLogic';
 import GeotabApi from './api';
 
-import'./advancedGroupFilter/advancedGroupFilter.js'
-import AdvancedGroupFilterListener from './advancedGroupFilter/AdvancedGroupFilterListener.js';
-let filterListener = new AdvancedGroupFilterListener()
-filterListener.assignListeners()
 
 // Building navbar
 // Exposing handler to let the translate function have access to it
 import './navbar/NavBuilder';
 
+
 /* Translations */
 import Translator from './lang/Translator';
 let language = localStorage.language ? localStorage.language : 'en';
 global.translator = new Translator('#demo', language);
+
 
 // Global Translate function
 global.state.translate = function(target, language) {
@@ -64,6 +64,7 @@ global.state.translate = function(target, language) {
     }
 }
 
+
 /* Logic */
 const loginLogic = new GeotabLogin(global.geotab.isDriveAddin, GeotabApi);
 
@@ -71,10 +72,18 @@ const loginLogic = new GeotabLogin(global.geotab.isDriveAddin, GeotabApi);
 // Building translation hierarchy
 require('./lang/languages');
 
-/* Group Filter Module */
+
+/* Group Filtering*/
+window.conditions = {}
+
 import GroupListeners from './groups/GroupListeners.js';
-let groupListener = new GroupListeners(global.api, global.state, 'filter-dropdown', 'group-dropdown', 'group-input', 'group-toggle-button', 'group-remove-all', 'active-group');
+let groupListener = new GroupListeners(global.api, global.state, 'original_filter', 'filter-dropdown', 'group-dropdown', 'group-input', 'group-toggle-button', 'group-remove-all', 'active-group');
 groupListener.assignEventListeners();
+
+import'./advancedGroupFilter/advancedGroupFilter.js'
+import AdvancedGroupFilterListener from './advancedGroupFilter/AdvancedGroupFilterListener.js';
+let filterListener = new AdvancedGroupFilterListener()
+filterListener.assignListeners()
 
 
 // Handling the blur toggle
