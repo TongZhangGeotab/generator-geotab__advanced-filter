@@ -105,6 +105,7 @@ class GroupListeners {
             this.groupBox.previousSearchTerm = '';
             display.style.display = 'none';
             this.open = false;
+            this.groupBox.generateRootHtml()
         }
 
         this._rotateToggleButton();
