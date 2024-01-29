@@ -113,7 +113,7 @@ class Groups {
         let stateLength = this.state._activeGroups.length;
         
         if(stateLength > 0){
-            text += _GroupHelper.generateActiveHeaderText(this.state, stateLength, this.groupsDictionary);
+            text += _GroupHelper.generateActiveHeaderText(this.state, stateLength, this.groupsDictionary, this.state.operator);
             this.deleteAllBtn.style.display = 'inline';
         } else {
             text += ` All`;

@@ -43,22 +43,22 @@ class AdvancedGroupFilterListener {
         this.conditionsList.insertAdjacentHTML('beforeend', `
             <li id='condition${this.conditionCount}' class='section form__section'>
                 <div class='section__inter-section-switcher'>
-                    <span class='geo-switcher'>
+                    <span class='geo-switcher' id='condition${this.conditionCount}-switcher'>
                         <input type='radio' id='condition${this.conditionCount}-inter-and' name='condition${this.conditionCount}-inter-operator' class='switcher geo-switcher__input' checked></input>
                         <label for='condition${this.conditionCount}-inter-and' class='geo-switcher__label' centeredLabelText onLabelSwitcher'>AND</label>
-                        <input type='radio' id='condition${this.conditionCount}-inter-or' name='condition${this.conditionCount}-inter-operator' class='switcher geo-switcher__input'></input>
-                        <label for='condition${this.conditionCount}-inter-or' class='geo-switcher__label' centeredLabelText onLabelSwitcher'>OR</label>
+                        <input type='radio' id='condition${this.conditionCount}-inter-or ' name='condition${this.conditionCount}-inter-operator' class='switcher geo-switcher__input'></input>
+                        <label for='condition${this.conditionCount}-inter-or ' class='geo-switcher__label' centeredLabelText onLabelSwitcher'>OR</label>
                     </span>
                 </div>
                 <div class='section__main'>
                     <div class='section__col section__col--left'>
                         <label class='section__label'>Operator</label>
                         <div class='section__switcher'>
-                            <span class='geo-switcher'>
+                            <span class='geo-switcher' id='condition${this.conditionCount}-operator'>
                                 <input type='radio' id='condition${this.conditionCount}-and' name='condition${this.conditionCount}-operator' class='switcher geo-switcher__input' checked></input>
                                 <label for='condition${this.conditionCount}-and' class='geo-switcher__label' centeredLabelText onLabelSwitcher'>AND</label>
-                                <input type='radio' id='condition${this.conditionCount}-or' name='condition${this.conditionCount}-operator' class='switcher geo-switcher__input'></input>
-                                <label for='condition${this.conditionCount}-or' class='geo-switcher__label' centeredLabelText onLabelSwitcher'>OR</label>
+                                <input type='radio' id='condition${this.conditionCount}-or ' name='condition${this.conditionCount}-operator' class='switcher geo-switcher__input'></input>
+                                <label for='condition${this.conditionCount}-or ' class='geo-switcher__label' centeredLabelText onLabelSwitcher'>OR</label>
                             </span>
                         </div>
                     </div>
@@ -93,6 +93,12 @@ class AdvancedGroupFilterListener {
         button = document.getElementById(`condition${this.conditionCount}-remove`)
         button.addEventListener('click', (button) => this._handleRemoveCondition(button))
 
+        operator = document.getElementById(`condition${this.conditionCount}-operator`)
+        operator.addEventListener('click', (button) => this._handleToggleOperator(button))
+
+        switcher = document.getElementById(`condition${this.conditionCount}-switcher`)
+        switcher.addEventListener('click', (button) => this._handleToggleSwitcher(button))
+
         // Create a new group listener for each condition
         state = {
             _activeGroups: [],
@@ -104,6 +110,32 @@ class AdvancedGroupFilterListener {
 
         // Increment counter to ensure each condition has a unique name
         this.conditionCount ++
+    }
+
+    _handleToggleOperator(button) {
+        operator = button.srcElement.id.slice(-3)
+        id = button.srcElement.id.slice(0, -4)
+        if (operator === 'and') {
+            conditions[id].groupsFilter.state.operator = 'AND'
+            conditions[id].groupsFilter.writeActiveGroups()
+        }
+        if (operator === 'or ') {
+            conditions[id].groupsFilter.state.operator = 'OR'
+            conditions[id].groupsFilter.writeActiveGroups()
+        }
+    }
+
+    _handleToggleSwitcher(button) {
+        switcher = button.srcElement.id.slice(-3)
+        id = button.srcElement.id.slice(0, -10)
+        console.log()
+        if (switcher === 'and') {
+            conditions[id].groupsFilter.state.switcher = 'AND'
+        }
+        if (switcher === 'or ') {
+            conditions[id].groupsFilter.state.switcher = 'OR'
+        }
+
     }
 
     // Remove condition
@@ -136,15 +168,15 @@ class AdvancedGroupFilterListener {
     }
 
     _writeAdvancedFilter() {
-        console.log('cond state', this.conditionsState)
-        text = ``
+        text = `Active Groups: `
         for (let i = 0; i < this.conditionsState.length; i++) {
             condition = this.conditionsState[i]
-            console.log('cond', condition, condition.state, condition.groupsDictionary)
             if (i != 0) {
-                text += `${condition.state.switcher}`
+                text += ` ${condition.state.switcher} `
             }
-            text += ` (`
+            if (this.conditionsState.length > 1 && condition.state._activeGroups.length > 1) {
+                text += `(`
+            }
             for(let j = 0; j < condition.state._activeGroups.length; j++){
                 let id = condition.state._activeGroups[j].id;
                 let name = condition.groupsDictionary[id].name;
@@ -155,9 +187,12 @@ class AdvancedGroupFilterListener {
                     text += ` ${condition.state.operator} ${name}`;
                 }
             } 
-            text += ') '
+            if (this.conditionsState.length > 1 && condition.state._activeGroups.length > 1) {
+                text += `)`
+            }
         }
-        console.log(text)
+        conditions.original_filter.groupsFilter.activeLabel.innerHTML = text
+        this.conditionsState = []
     }
 }
 
