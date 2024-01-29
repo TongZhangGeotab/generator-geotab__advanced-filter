@@ -36,6 +36,9 @@ const state = {
     },
     getGroupFilter: function () {
         return this._activeGroups;
+    },
+    getAdvancedGroupFilter: function () {
+        return console.warn('getAdvancedGroupFilter, PENDING IMPLEMENTATION');
     }
 };
 

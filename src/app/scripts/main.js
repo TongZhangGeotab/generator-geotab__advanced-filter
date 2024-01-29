@@ -41,11 +41,13 @@ geotab.addin.demo = function () {
      * @param {object} freshState - The page state object allows access to URL, page navigation and global group filter.
     */
     focus: function (freshApi, freshState) {
-      
+          var advancedGroupFilterText = document.querySelector('#advancedGroupFilterObject')
           // getting the current user to display in the UI
           freshApi.getSession(session => {
             elAddin.querySelector('#demo-user').textContent = session.userName;
           });
+          console.log('advancedGroupFilter', freshState.getAdvancedGroupFilter());
+          advancedGroupFilterText.textContent = JSON.stringify(freshState.getAdvancedGroupFilter())
       // show main content
       
     },
