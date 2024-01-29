@@ -27,7 +27,7 @@ class _GroupHelper {
         return dict;
     }
 
-    static generateActiveHeaderText(state, stateLength, groupDictionary){
+    static generateActiveHeaderText(state, stateLength, groupDictionary, operator){
         let text = ``;
 
         for(let i=0; i<stateLength; i++){
@@ -37,7 +37,7 @@ class _GroupHelper {
             if(i === state._activeGroups.length-1){
                 text += ' ' + name;
             } else {
-                text += ' ' + name + ` OR`;
+                text += ' ' + name + ` ${operator}`;
             }
         }
 
