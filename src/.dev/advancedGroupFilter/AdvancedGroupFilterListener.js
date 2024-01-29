@@ -27,6 +27,8 @@ class AdvancedGroupFilterListener {
 
     // Show the advnaced filter popup
     _showAdvancedGroupFilter() {
+        conditions.original_filter.groupsFilter.state._activeGroups = []
+        conditions.original_filter.groupsFilter.writeActiveGroups()
         let filter = document.getElementById('advanced-group-filter')
         filter.style.display = 'block'
     }
@@ -143,18 +145,27 @@ class AdvancedGroupFilterListener {
         id = button.srcElement.id
         condition = document.getElementById(id.slice(0, -7))
         condition.remove()
-        console.log(button)
+        delete conditions[id.slice(0, -7)]
     }
 
     // Remove all conditions and hide popup
     _cancelFilters() {
         this.displayBox.style.display = 'none'
         this.conditionsList.innerHTML = ''
+        for (let i = 0; i < this.conditionCount; i++) {
+            delete conditions[`condition${i}`]
+        }
         this.conditionCount = 0
     }
 
     // Keep conditions and hide popup
     _applyFilters() {
+        for (let i = 0; i < this.conditionCount; i++) {
+            if (conditions[`condition${i}`]) {
+                conditions.original_filter.groupsFilter.state._activeGroups.push(...conditions[`condition${i}`].groupsFilter.state._activeGroups)
+            }
+        }
+        conditions.original_filter.groupsFilter.writeActiveGroups()
         this.displayBox.style.display = 'none'
     }
 }

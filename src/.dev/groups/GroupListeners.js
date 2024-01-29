@@ -7,7 +7,6 @@ class GroupListeners {
     constructor(api, state, label, target, parent, searchbar, dropdownToggle, removeBtn, activeGroupsid){
         this.groupBox = new Groups(api, state, label, target, searchbar, removeBtn, activeGroupsid, parent);
         conditions[label] = {'groupsFilter': this.groupBox}
-        console.log(conditions, label)
         this.displayBox = document.getElementById(parent)
         this.inputBox = document.getElementById(searchbar);
         this.groupToggle = document.getElementById(dropdownToggle);

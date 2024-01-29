@@ -24,7 +24,6 @@ class Groups {
         this.previousGroupStack = [];
         this.activeGroups = [];
         this.previousSearchTerm;
-        console.log(this)
     }
 
     /**
