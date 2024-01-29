@@ -8,6 +8,7 @@ class AdvancedGroupFilterListener {
         this.applyFiltersBtn = document.getElementById('advanced-filter-apply-button')
         this.conditionsList = document.getElementById('advanced-conditions-list')
         this.filterBtn = document.getElementById('open-filter-button')
+        this.conditionsState = []
         this.conditionCount = 0
     }
 
@@ -95,7 +96,8 @@ class AdvancedGroupFilterListener {
         // Create a new group listener for each condition
         state = {
             _activeGroups: [],
-
+            operator: 'AND',
+            switcher: 'AND'
         }
         groupListener = new GroupListeners(global.api, state, `condition${this.conditionCount}`, `condition${this.conditionCount}-filter-dropdown`, `condition${this.conditionCount}-group-dropdown`, `condition${this.conditionCount}-search`, `condition${this.conditionCount}-dropdown-toggle`, `condition${this.conditionCount}-clear-group`, `condition${this.conditionCount}-active-groups`);
         groupListener.assignEventListeners();        
@@ -106,10 +108,10 @@ class AdvancedGroupFilterListener {
 
     // Remove condition
     _handleRemoveCondition(button) {
-        id = button.srcElement.id
-        condition = document.getElementById(id.slice(0, -7))
+        id = button.srcElement.id.slice(0, -7)
+        condition = document.getElementById(id)
         condition.remove()
-        delete conditions[id.slice(0, -7)]
+        delete conditions[id]
     }
 
     // Remove all conditions and hide popup
@@ -126,11 +128,36 @@ class AdvancedGroupFilterListener {
     _applyFilters() {
         for (let i = 0; i < this.conditionCount; i++) {
             if (conditions[`condition${i}`]) {
-                conditions.original_filter.groupsFilter.state._activeGroups.push(...conditions[`condition${i}`].groupsFilter.state._activeGroups)
+                this.conditionsState.push(conditions[`condition${i}`].groupsFilter)
             }
         }
-        conditions.original_filter.groupsFilter.writeActiveGroups()
+        this._writeAdvancedFilter()
         this.displayBox.style.display = 'none'
+    }
+
+    _writeAdvancedFilter() {
+        console.log('cond state', this.conditionsState)
+        text = ``
+        for (let i = 0; i < this.conditionsState.length; i++) {
+            condition = this.conditionsState[i]
+            console.log('cond', condition, condition.state, condition.groupsDictionary)
+            if (i != 0) {
+                text += `${condition.state.switcher}`
+            }
+            text += ` (`
+            for(let j = 0; j < condition.state._activeGroups.length; j++){
+                let id = condition.state._activeGroups[j].id;
+                let name = condition.groupsDictionary[id].name;
+    
+                if(j === 0){
+                    text += name;
+                } else {
+                    text += ` ${condition.state.operator} ${name}`;
+                }
+            } 
+            text += ') '
+        }
+        console.log(text)
     }
 }
 
