@@ -128,7 +128,6 @@ class AdvancedGroupFilterListener {
     _handleToggleSwitcher(button) {
         switcher = button.srcElement.id.slice(-3)
         id = button.srcElement.id.slice(0, -10)
-        console.log()
         if (switcher === 'and') {
             conditions[id].groupsFilter.state.switcher = 'AND'
         }
@@ -160,11 +159,47 @@ class AdvancedGroupFilterListener {
     _applyFilters() {
         for (let i = 0; i < this.conditionCount; i++) {
             if (conditions[`condition${i}`]) {
-                this.conditionsState.push(conditions[`condition${i}`].groupsFilter)
+                if (conditions[`condition${i}`].groupsFilter.state._activeGroups.length > 0) {
+                    this.conditionsState.push(conditions[`condition${i}`].groupsFilter)
+                }
             }
         }
+        this._createFilterObject()
         this._writeAdvancedFilter()
         this.displayBox.style.display = 'none'
+    }
+
+    _createFilterObject() {
+        filter_obj = {}
+        for (let i = 0; i < this.conditionsState.length; i++) {
+            condition = this.conditionsState[i]
+            if (condition.state._activeGroups.length === 1) {
+                obj = {"groupId": condition.state._activeGroups[0].id}
+            }
+            else {
+                obj = {
+                    "relation": condition.state.operator,
+                    "groupFilterConditions": []
+                }
+                for (j in condition.state._activeGroups) {
+                    obj["groupFilterConditions"].push({"groupId": condition.state._activeGroups[j].id})
+                }
+            }
+            if (i != 0) {
+                filter_obj = {
+                    "relation": condition.state.switcher,
+                    "groupFilterConditions": [
+                        filter_obj,
+                        obj
+                    ]
+                }
+            }
+            else {
+                filter_obj = obj 
+            }
+        }
+        window.state._AdvancedGroupFilter = filter_obj
+        console.log(window.state._AdvancedGroupFilter)
     }
 
     _writeAdvancedFilter() {
