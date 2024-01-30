@@ -1,6 +1,6 @@
 {
   "name": "demo",
-  "supportEmail": "",
+  "supportEmail": "support@geotab.com",
   "version": "0.0.1",
   "items": [{
     "url": "demo.html",
