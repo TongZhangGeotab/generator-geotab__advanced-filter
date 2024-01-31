@@ -47,10 +47,11 @@ geotab.addin.demo = function () {
             elAddin.querySelector('#demo-user').textContent = session.userName;
           });
           console.log('STATE', freshState);
-          if (freshState.getAdvancedGroupFilter)
-            advancedGroupFilterText.textContent = JSON.stringify(freshState.getAdvancedGroupFilter())
+          if (freshState.getAdvancedGroupsFilter) {
+            advancedGroupFilterText.textContent = JSON.stringify(freshState.getAdvancedGroupsFilter())
+          }
           else
-            console.warn('Something went wrong, the getAdvancedGroupFilter is no longer in the freshState object');
+            console.warn('Something went wrong, the getAdvancedGroupsFilter is no longer in the freshState object');
       // show main content
       
     },

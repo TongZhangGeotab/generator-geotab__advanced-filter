@@ -100,12 +100,12 @@ class AdvancedGroupFilterListener {
         switcher.addEventListener('click', (button) => this._handleToggleSwitcher(button))
 
         // Create a new group listener for each condition
-        state = {
+        local_state = {
             _activeGroups: [],
             operator: 'AND',
             switcher: 'AND'
         }
-        groupListener = new GroupListeners(global.api, state, `condition${this.conditionCount}`, `condition${this.conditionCount}-filter-dropdown`, `condition${this.conditionCount}-group-dropdown`, `condition${this.conditionCount}-search`, `condition${this.conditionCount}-dropdown-toggle`, `condition${this.conditionCount}-clear-group`, `condition${this.conditionCount}-active-groups`);
+        groupListener = new GroupListeners(global.api, local_state, `condition${this.conditionCount}`, `condition${this.conditionCount}-filter-dropdown`, `condition${this.conditionCount}-group-dropdown`, `condition${this.conditionCount}-search`, `condition${this.conditionCount}-dropdown-toggle`, `condition${this.conditionCount}-clear-group`, `condition${this.conditionCount}-active-groups`);
         groupListener.assignEventListeners();        
 
         // Increment counter to ensure each condition has a unique name
@@ -198,8 +198,9 @@ class AdvancedGroupFilterListener {
                 filter_obj = obj 
             }
         }
-        window.state._AdvancedGroupFilter = filter_obj
-        console.log(window.state._AdvancedGroupFilter)
+        window.state._advancedGroupsFilter = filter_obj
+        geotab.addin.demo.focus(global.api, global.state);
+        console.log(window.state.getAdvancedGroupsFilter())
     }
 
     _writeAdvancedFilter() {

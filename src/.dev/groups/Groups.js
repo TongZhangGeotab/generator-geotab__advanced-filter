@@ -101,7 +101,7 @@ class Groups {
 
         this.writeActiveGroups();
 
-        geotab.addin.demo.focus(this.api, this.state);
+        geotab.addin.demo.focus(this.api, global.state);
     }
 
     /**
